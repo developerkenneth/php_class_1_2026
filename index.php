@@ -1,113 +1,47 @@
 <?php
+include_once "./classes/User.php";
+include_once "./classes/Comments.php";
 
-$pageTitle = "File upload";
-$username = "John Doe";
+// creating an object from a class
+$user = new User("John Doe", 26, "6'2", "web development");
+$userOne = new User("Jessica Doe", 22, "5'1", "cyber security");
 
-// file paths:
-// directoeries
+$userData = $user->userData;
+var_dump($userData);
 
-// file path
-$filePath = __FILE__;
+// changing username 
+echo $user->changeUsername("Jessica Doe");
 
-// directory path
-$currentDirectory = __DIR__;
-
-// getting actual file name 
-$fileName = basename($filePath);
-
-// getting directory name of a path
-$directoryName = dirname($filePath);
-
-// directory of this particular folder
-$actualDirectory = dirname($currentDirectory);
+// Cannot access private property User::$secret or protected property User::$children  from global scope.
+// echo $user->secret;
+// echo $user->children;
 
 
-$uploadedFile = "";
+// creating a new instance of comments which inherits User
+
+$comments = new Comments("Ejike Doe", 28, "6'1", "digital marketing", "I love this channel");
+var_dump($comments->getUserData());
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- add head to file -->
-
-<?php include "./includes/head.php" ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP</title>
+</head>
 
 <body>
+    <h1>Welcome to PHP OOP</h1>
+    <p>Hello, <?= $userData['name'] ?></p>
+    <p>Hello, <?= $user->userData['name'] ?></p>
 
+    <!-- echo user one name -->
+    <p>Hello, <?= $userOne->userData['name'] ?></p>
+    <p>Your secret is : <?= $user->getSecret(); ?></p>
+    <p>Your comment is : <?= $comments->getComment(); ?></p>
 
-    <!-- side bar -->
-    <?php require_once("./includes/sidebar.php"); ?>
-    <main>
-
-        <!-- header here -->
-        <?php include "./includes/header.php" ?>
-
-        <?php
-
-        // handling file upload
-
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
-            if ($_FILES['picture']) {
-
-                $fileName = $_FILES['picture']['name'];
-                $temporary = $_FILES['picture']['tmp_name'];
-
-                // turns string to an array using the operator giving
-                $fileArray = explode(".", $fileName);
-
-                // end : gets the last array element
-                $ext =  end($fileArray);
-
-                if ($fileName) {
-                    // random name
-                    $randomName = time();
-                    // new name 
-                    $filePath = "./storage/$randomName.$ext";
-                    // handle file upload
-                    try {
-                        move_uploaded_file($temporary, $filePath);
-                        $uploadedFile = $filePath;
-                        echo "file has been upload successfully";
-                    } catch (Exception $error) {
-                        echo $error->getMessage();
-                    }
-                }
-            }
-        }
-
-        ?>
-        <div class="content">
-
-            <!-- form container -->
-            <section class="container">
-                <!-- form -->
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="picture">Upload a picture:</label>
-                        <input type="file" name="picture">
-                    </div>
-
-
-                    <div class="form-group">
-                        <button class="btn" type="submit">Upload picture</button>
-                    </div>
-                </form>
-            </section>
-
-            <?php if ($uploadedFile) : ?>
-                <div class="uploaded-file">
-                    <img src="<?= $uploadedFile ?>" alt=" file that was uploaded">
-                </div>
-            <?php endif; ?>
-        </div>
-
-
-
-
-
-        <footer>
-            &copy; <span>digital dreams 2025</span>
-        </footer>
-    </main>
 
 
 </body>
