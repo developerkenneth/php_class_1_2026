@@ -22,6 +22,7 @@ echo $user->changeUsername("Jessica Doe");
 $comments = new Comments("Ejike Doe", 28, "6'1", "digital marketing", "I love this channel");
 var_dump($comments->getUserData());
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +42,10 @@ var_dump($comments->getUserData());
     <p>Hello, <?= $userOne->userData['name'] ?></p>
     <p>Your secret is : <?= $user->getSecret(); ?></p>
     <p>Your comment is : <?= $comments->getComment(); ?></p>
+    <p>The default comment is: <?= Comments::defaultComment();  ?></p>
+    <p>Your default comment is: <?= Comments::getDefaultComment();  ?></p>
+    <p>Your default comment is: <?php var_dump(Comments::getUserDataTwo($userOne));  ?></p>
+
 
 
 

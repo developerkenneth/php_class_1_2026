@@ -41,4 +41,9 @@ class User
             "class" => $class
         ];
     }
+
+    public function __destruct()
+    {
+        echo "bye bye, thanks for commenting";
+    }
 }

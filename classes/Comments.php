@@ -3,8 +3,14 @@ require_once "User.php";
 class Comments extends User
 {
 
-    public $comment;
+    public $comment = " hello world 1";
+    public static $defaultComment = "hello world";
 
+
+    public static function defaultComment()
+    {
+        return "hello world";
+    }
     public function getUserData()
     {
         return $this->userData;
@@ -32,5 +38,15 @@ class Comments extends User
     public function getComment()
     {
         return $this->comment;
+    }
+
+    public static function getDefaultComment()
+    {
+        return  self::$defaultComment;
+    }
+
+    public static function getUserDataTwo($instanceOfUser)
+    {
+        return $instanceOfUser->userData;
     }
 }
