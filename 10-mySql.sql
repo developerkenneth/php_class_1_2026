@@ -7,3 +7,7 @@ SELECT * FROM `users`;
 
 -- DELETE
 DELETE FROM `users` WHERE `id` = ?;
+
+-- UPDATE QUERY
+
+UPDATE `users` SET `id` = 'value', `name` = 'value', `email`= 'value' WHERE `id` = ?;
